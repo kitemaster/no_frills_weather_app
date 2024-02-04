@@ -1,11 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple weather app that uses the OpenWeatherMap API to get the current weather for a given address. It is 
+built using Ruby on Rails.
 
-Things you may want to cover:
+Here is what you need to do to get it running:
 
 * Ruby version
+  - 3.1.3
+
+* Rails version
+  - 7.0.8
 
 * System dependencies
 

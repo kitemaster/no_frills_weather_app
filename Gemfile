@@ -64,6 +64,13 @@ group :development do
   # gem "spring"
 end
 
+group :development, :test do
+  gem 'pry'
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+end
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
