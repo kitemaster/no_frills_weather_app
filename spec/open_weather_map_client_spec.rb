@@ -5,7 +5,8 @@ describe OpenWeatherMapClient do
 
   let(:base_api_url) { "https://api.openweathermap.org" }
   let(:open_weather_map_client) { OpenWeatherMapClient.new }
-  let(:success_response_body) { { zip: "55122", name: "Eagan", lat: 44.786, lon: -93.2202, country: "US" }.to_json }
+  let(:successful_response_body_for_geocoding_api) { { zip: "55122", name: "Eagan", lat: 44.786, lon: -93.2202, country: "US" }.to_json }
+  let(:successful_raw_response_file_for_weather_api) { File.new("#{Rails.root}/spec/fixtures/successful_open_weather_map_response.txt") }
 
   before(:each) do
     stub_request(
@@ -18,7 +19,11 @@ describe OpenWeatherMapClient do
         'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
         'User-Agent' => 'Ruby'
       }).
-      to_return(status: 200, body: success_response_body, headers: { content_type: 'application/json' })
+      to_return(
+        status: 200,
+        body: successful_response_body_for_geocoding_api,
+        headers: { content_type: 'application/json' }
+      )
   end
 
   describe '#get_longitude_and_latitude_for_zipcode' do
@@ -43,9 +48,11 @@ describe OpenWeatherMapClient do
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'User-Agent' => 'Ruby'
         }).
-        to_return(status: 200, body: success_response_body, headers: { content_type: 'application/json' })
+        to_return(successful_raw_response_file_for_weather_api)
 
-      expect(OpenWeatherMapClient.new.get_weather_for_zipcode_and_country_code(55122, 'us').code).to be 200
+      response = open_weather_map_client.get_weather_for_zipcode_and_country_code(55122, 'us')
+      expect(response.code).to be 200
+      expect(response['current']['temp']).to be 44.44
     end
   end
 
