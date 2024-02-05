@@ -18,8 +18,34 @@
   margin-top: 3rem !important;
 }
 
-.align-center {
-  display: block;
-  margin-left: auto;
+#search {
+  width: 100%;
   margin-right: auto;
+}
+
+#address {
+  width: 75%;
+  margin: 0 auto;
+  display: block;
+}
+
+.list-container {
+  width: 75%;;
+  margin: 0 auto;
+  border: 1px solid #000;
+  margin-top: 5px;
+}
+
+.list-container ul {
+  list-style: none;
+  padding-left: 4px;
+  margin: 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.results-table {
+  width: 75%;;
+  margin: 0 auto;
+  padding: 5px;
 }

@@ -1,13 +1,15 @@
 <turbo-frame id="results" data-turbo-action="advance">
-  <h3><%= "Current Weather in #{@city}, #{@state}, #{@country}" %></h3>
+  <div class="results-table">
+    <h3><%= "Current Weather in #{@city}, #{@state}, #{@country}" %></h3>
 
-  <% if @weather.is_a?(String) %>
-    <p> Having issues with weather API. Please try again later.</p>
-  <% else %>
-    <p class="align-center">Units: Imperial</p>
-    <p><%= "Temperature: #{@weather['current']['temp']}" %></p>
-    <p><%= "Feels Like: #{@weather['current']['feels_like']}" %></p>
-    <p><%= "Humidity: #{@weather['current']['humidity']}" %></p>
-    <p><%= "Wind Speed: #{@weather['current']['wind_speed']}" %></p>
-  <% end %>
+    <% if @weather.is_a?(String) %>
+      <p> Having issues with weather API. Please try again later.</p>
+    <% else %>
+      <p>Units: Imperial</p>
+      <p>Temperature: <strong> <%= "#{@weather['current']['temp']}" %> </strong></p>
+      <p><%= "Feels Like: #{@weather['current']['feels_like']}" %></p>
+      <p><%= "Humidity: #{@weather['current']['humidity']}" %></p>
+      <p><%= "Wind Speed: #{@weather['current']['wind_speed']}" %></p>
+    <% end %>
+  </div>
 </turbo-frame>
