@@ -22,14 +22,24 @@ class HomeController < ApplicationController
     @city = params[:name]
     @state = params[:state]
     @country = params[:country]
-    @weather = @open_weather_map_client.get_weather_for_location(params[:lat], params[:lon])
+
+    @weather = Rails.cache.fetch("#{@city}_#{@state}_#{@country}", expires_in: 30.minutes) do
+      @not_from_cache = true
+      @open_weather_map_client.get_weather_for_location(params[:lat], params[:lon])
+    end
   end
 
   def weather_for_zipcode
     @zip = params[:zip]
-    @weather = @open_weather_map_client.get_weather_for_zipcode_and_country_code(@zip, 'US')
+
+    @weather = Rails.cache.fetch(@zip, expires_in: 30.minutes) do
+      @not_from_cache = true
+      @open_weather_map_client.get_weather_for_zipcode_and_country_code(@zip, 'US')
+    end
+    binding.pry
     render :weather_for_location
   end
+
 
   private
   def initialize_open_weather_map_client

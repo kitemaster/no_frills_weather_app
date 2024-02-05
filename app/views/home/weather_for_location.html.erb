@@ -8,6 +8,10 @@
       <% end %>
     </h3>
 
+    <% unless @not_from_cache %>
+      <p> <strong> *Fetched From Cache* </strong> </p>
+    <% end %>
+
     <% if @weather.is_a?(String) %>
       <p> Having issues with weather API. Please try again later.</p>
     <% else %>
@@ -17,5 +21,6 @@
       <p><%= "Humidity: #{@weather['current']['humidity']}" %></p>
       <p><%= "Wind Speed: #{@weather['current']['wind_speed']}" %></p>
     <% end %>
+
   </div>
 </turbo-frame>
