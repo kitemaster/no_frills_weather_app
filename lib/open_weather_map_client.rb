@@ -19,8 +19,19 @@ class OpenWeatherMapClient
     )
   end
 
+  def get_weather_for_location(lat, lon)
+    response = HTTParty.get("#{BASE_URL}/data/3.0/onecall?lat=#{lat}&lon=#{lon}&exclude=minutely&units=imperial&appid=#{@api_key}")
+
+    if response.code == 200
+      response
+    else
+      "Having issues with weather API. Please try again later."
+    end
+  end
+
   def get_matching_addresses(address)
-    HTTParty.get("#{BASE_URL}/geo/1.0/direct?q=#{address}&limit=5&appid=#{@api_key}")
+    response = HTTParty.get("#{BASE_URL}/geo/1.0/direct?q=#{address}&limit=5&appid=#{@api_key}")
+    response if response.code == 200
   end
 
 end

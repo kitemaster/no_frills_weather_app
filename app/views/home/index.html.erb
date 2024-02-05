@@ -1,0 +1,17 @@
+<%= form_tag "/address_search", method: 'get', id: 'search', autocomplete: "off",
+             enforce_utf8: false,
+             data: {
+               turbo: "true",
+               turbo_frame: "results",
+               turbo_action: "advance",
+               controller: "home",
+               action: "input->home#submit"
+             } do |f| %>
+
+
+  <%= text_field_tag :address, nil, placeholder: 'Enter the address', size:55 , class: 'mt-5 align-center' %>
+
+  <turbo-frame id="results" data-turbo-action="advance">
+
+  </turbo-frame>
+<% end %>
