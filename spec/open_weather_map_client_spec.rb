@@ -9,6 +9,7 @@ describe OpenWeatherMapClient do
   let(:successful_raw_response_file_for_weather_api) { File.new("#{Rails.root}/spec/fixtures/successful_open_weather_map_response.txt") }
   let(:partial_address) { 'Eagan' }
   let(:matching_addresses) { [{"name"=>"Eagan", "lat"=>44.818173, "lon"=>-93.1659179, "country"=>"US", "state"=>"Minnesota"}, {"name"=>"Eagan", "lat"=>36.5520248, "lon"=>-83.9768682, "country"=>"US", "state"=>"Tennessee"}] .to_json }
+  let(:failed_response) { {"cod"=>"404", "message"=>"Internal error"}.to_json }
 
   before(:each) do
     stub_request(
@@ -80,6 +81,29 @@ describe OpenWeatherMapClient do
       expect(response.code).to be 200
       expect(response.count).to be 2
       expect(response.first['name']).to eq 'Eagan'
+    end
+  end
+
+  describe '#get_weather_for_location' do
+    it "should return proper error message when the API call fails" do
+      stub_request(
+        :get,
+        "#{base_api_url}/data/3.0/onecall?lat=44.786&lon=-93.2202&exclude=minutely&units=imperial&appid="\
+          "#{Rails.application.credentials.open_weather_map.api_key}"
+      ).with(
+        headers: {
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent' => 'Ruby'
+        }).
+        to_return(
+          status: 500,
+          body: failed_response,
+          headers: { content_type: 'text/html' }
+        )
+
+      response = open_weather_map_client.get_weather_for_location(44.786, -93.2202)
+      expect(response).to eq "Having issues with weather API. Please try again later."
     end
   end
 
