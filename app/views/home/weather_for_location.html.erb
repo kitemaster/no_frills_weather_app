@@ -1,6 +1,12 @@
 <turbo-frame id="results" data-turbo-action="advance">
   <div class="results-table">
-    <h3><%= "Current Weather in #{@city}, #{@state}, #{@country}" %></h3>
+    <h3>
+      <% if @zip.present? %>
+        <%= "Current Weather in #{@zip}" %>
+      <% elsif @city.present? %>
+        <%= "Current Weather in #{@city}, #{@state}, #{@country}" %>
+      <% end %>
+    </h3>
 
     <% if @weather.is_a?(String) %>
       <p> Having issues with weather API. Please try again later.</p>

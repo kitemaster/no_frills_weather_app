@@ -10,10 +10,12 @@
                } do |f| %>
 
 
-    <%= text_field_tag :address, nil, placeholder: 'Enter the address', class: 'mt-5', id: 'address' %>
+    <%= text_field_tag :address, nil, placeholder: 'Enter the city or zip code', class: 'mt-5', id: 'address' %>
 
     <turbo-frame id="results" data-turbo-action="advance">
-
+      <div class="results-table">
+        <%= flash[:notice] %>
+      </div>
     </turbo-frame>
   <% end %>
 </div>

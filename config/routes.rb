@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   get '/address_search', to: 'home#address_search'
   get '/weather_for_location', to: 'home#weather_for_location', as: 'weather_for_location'
+  get '/weather_for_zipcode', to: 'home#weather_for_zipcode', as: 'weather_for_zipcode'
 end
