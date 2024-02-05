@@ -5,12 +5,12 @@ describe "Home Page" do
 
     it "should have a link to the home page" do
       visit '/'
-      expect(page).to have_link('Home', '/')
+      expect(page).to have_link('No Frills Weather App', :href => '/')
     end
 
     it "should have a link to the about page" do
       visit '/'
-      expect(page).to have_link('About', '/about')
+      expect(page).to have_link('/about')
     end
 
     it "should have the right h1 heading" do
