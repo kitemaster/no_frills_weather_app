@@ -19,4 +19,8 @@ class OpenWeatherMapClient
     )
   end
 
+  def get_matching_addresses(address)
+    HTTParty.get("#{BASE_URL}/geo/1.0/direct?q=#{address}&limit=5&appid=#{@api_key}")
+  end
+
 end
