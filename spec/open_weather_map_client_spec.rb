@@ -5,10 +5,35 @@ describe OpenWeatherMapClient do
 
   let(:base_api_url) { "https://api.openweathermap.org" }
   let(:open_weather_map_client) { OpenWeatherMapClient.new }
-  let(:successful_response_body_for_geocoding_api) { { zip: "55122", name: "Eagan", lat: 44.786, lon: -93.2202, country: "US" }.to_json }
-  let(:successful_raw_response_file_for_weather_api) { File.new("#{Rails.root}/spec/fixtures/successful_open_weather_map_response.txt") }
+
+  let(:successful_response_body_for_geocoding_api) {
+    { zip: "55122", name: "Eagan", lat: 44.786, lon: -93.2202, country: "US" }.to_json
+  }
+
+  let(:successful_raw_response_file_for_weather_api) {
+    File.new("#{Rails.root}/spec/fixtures/successful_open_weather_map_response.txt")
+  }
+
   let(:partial_address) { 'Eagan' }
-  let(:matching_addresses) { [{"name"=>"Eagan", "lat"=>44.818173, "lon"=>-93.1659179, "country"=>"US", "state"=>"Minnesota"}, {"name"=>"Eagan", "lat"=>36.5520248, "lon"=>-83.9768682, "country"=>"US", "state"=>"Tennessee"}] .to_json }
+
+  let(:matching_addresses) {
+    [
+      {
+        "name" => "Eagan",
+        "lat" => 44.818173,
+        "lon" => -93.1659179,
+        "country" => "US",
+        "state" => "Minnesota"
+      },
+      {
+        "name" => "Eagan",
+        "lat" => 36.5520248,
+        "lon" => -83.9768682,
+        "country" => "US",
+        "state" => "Tennessee"
+      }].to_json
+  }
+
   let(:failed_response) { {"cod"=>"404", "message"=>"Internal error"}.to_json }
 
   before(:each) do
