@@ -1,0 +1,20 @@
+<turbo-frame id="results" data-turbo-action="advance">
+  <ul>
+    <% @matching_addresses&.each do |address| %>
+      <li>
+        <%=
+          link_to(
+            format_address(address),
+            weather_for_location_url(
+                    lat: address['lat'],
+                    lon: address['lon'],
+                    name: address['name'],
+                    state: address['state'],
+                    country: address['country']
+                  )
+          )
+        %>
+      </li>
+    <% end %>
+  </ul>
+</turbo-frame>
