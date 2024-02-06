@@ -36,7 +36,7 @@ class HomeController < ApplicationController
       @not_from_cache = true
       @open_weather_map_client.get_weather_for_zipcode_and_country_code(@zip, 'US')
     end
-    binding.pry
+    
     render :weather_for_location
   end
 
